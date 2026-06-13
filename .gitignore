@@ -1,0 +1,14 @@
+# Node dependencies
+node_modules/
+
+# Compiled JavaScript output
+dist/
+
+# Local logs and persistent state
+logs/
+*.json.bak
+*.log
+
+# System files
+.DS_Store
+Thumbs.db

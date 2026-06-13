@@ -1,0 +1,33 @@
+{
+  "name": "agent-shield",
+  "version": "1.0.0",
+  "description": "A security shield SDK for AI agent wallets - checking daily limits, whitelists, reputation, and rate limits.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "type": "module",
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/demo.ts",
+    "dashboard": "tsx src/dashboard/server.ts",
+    "test": "node --import tsx --test src/**/*.test.ts"
+  },
+  "keywords": [
+    "agent",
+    "wallet",
+    "security",
+    "shield",
+    "sdk",
+    "ai"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.21",
+    "@types/node": "^20.11.24",
+    "tsx": "^4.7.1",
+    "typescript": "^5.3.3"
+  }
+}

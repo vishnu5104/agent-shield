@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgentShield - Agent Wallet Security Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo-area">
+        <div class="logo-shield">
+          <i class="fa-solid fa-shield-halved"></i>
+        </div>
+        <div class="logo-text">
+          <h1>AgentShield</h1>
+          <p>Autonomous AI Agent Wallet Security Shield</p>
+        </div>
+      </div>
+      <div class="system-status">
+        <span class="status-pulse"></span>
+        <span class="status-text">Shield Active</span>
+      </div>
+    </header>
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard-grid">
+      <!-- Left Column: Config Panel -->
+      <section class="card config-card">
+        <div class="card-header">
+          <i class="fa-solid fa-sliders"></i>
+          <h2>Security Policies</h2>
+        </div>
+        <form id="config-form" class="config-form">
+          <div class="form-group">
+            <label for="daily-limit">
+              <span>Daily Spend Limit</span>
+              <span class="label-info">Max spend per 24 hours</span>
+            </label>
+            <div class="input-prefix-wrapper">
+              <span class="input-prefix">$</span>
+              <input type="number" id="daily-limit" name="dailyLimit" min="1" required placeholder="100">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="min-reputation">
+              <span>Min Merchant Reputation</span>
+              <span id="reputation-val" class="badge">70/100</span>
+            </label>
+            <input type="range" id="min-reputation" name="minReputation" min="0" max="100" step="5" value="70">
+            <div class="range-labels">
+              <span>0 (Off)</span>
+              <span>50 (Medium)</span>
+              <span>100 (Paranoid)</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="whitelist-input">
+              <span>Merchant Whitelist</span>
+              <span class="label-info">Comma-separated merchant names</span>
+            </label>
+            <textarea id="whitelist-input" name="whitelist" rows="3" placeholder="OpenAI, Anthropic, AWS, Stripe"></textarea>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="rate-limit-max">Max Tx</label>
+              <input type="number" id="rate-limit-max" name="rateLimitMax" min="1" required placeholder="5">
+            </div>
+            <div class="form-group">
+              <label for="rate-limit-window">Window (sec)</label>
+              <input type="number" id="rate-limit-window" name="rateLimitWindow" min="1" required placeholder="60">
+            </div>
+          </div>
+
+          <button type="submit" class="btn btn-primary" id="save-config-btn">
+            <i class="fa-solid fa-floppy-disk"></i> Apply Security Policies
+          </button>
+        </form>
+      </section>
+
+      <!-- Middle Column: Simulator -->
+      <section class="card simulator-card">
+        <div class="card-header">
+          <i class="fa-solid fa-terminal"></i>
+          <h2>Sandbox Simulator</h2>
+        </div>
+        <div class="simulator-wrapper">
+          <p class="section-desc">Simulate an agent invoking <code>agent.pay()</code> to test rules in real-time.</p>
+          
+          <div class="quick-templates">
+            <span class="template-label">Presets:</span>
+            <button class="btn btn-sm btn-outline template-btn" data-merchant="OpenAI" data-amount="15">
+              OpenAI ($15)
+            </button>
+            <button class="btn btn-sm btn-outline template-btn" data-merchant="unknown-hosting-xyz" data-amount="8">
+              Unknown Host ($8)
+            </button>
+            <button class="btn btn-sm btn-outline template-btn" data-merchant="free-crypto-giveaway" data-amount="5">
+              Crypto AirDrop ($5)
+            </button>
+            <button class="btn btn-sm btn-outline template-btn" data-merchant="AWS" data-amount="120">
+              AWS Bill ($120)
+            </button>
+          </div>
+
+          <form id="simulator-form" class="simulator-form">
+            <div class="form-row">
+              <div class="form-group flex-2">
+                <label for="sim-merchant">Merchant Name / Domain</label>
+                <input type="text" id="sim-merchant" required placeholder="e.g. OpenAI">
+              </div>
+              <div class="form-group flex-1">
+                <label for="sim-amount">Amount ($)</label>
+                <input type="number" id="sim-amount" min="0.01" step="0.01" required placeholder="10">
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-accent" id="simulate-btn">
+              <i class="fa-solid fa-play"></i> Trigger agent.pay()
+            </button>
+          </form>
+
+          <!-- Decision Output Area -->
+          <div id="simulation-output" class="simulation-output hidden">
+            <div class="decision-banner">
+              <div class="decision-icon"></div>
+              <div class="decision-headline"></div>
+            </div>
+            <div class="decision-body">
+              <div class="decision-row">
+                <span class="decision-label">Rule Decision:</span>
+                <span class="decision-val" id="decision-status"></span>
+              </div>
+              <div class="decision-row" id="decision-block-row">
+                <span class="decision-label">Blocked By:</span>
+                <span class="decision-val badge badge-danger" id="decision-blocked-by"></span>
+              </div>
+              <div class="decision-row">
+                <span class="decision-label">Security Reason:</span>
+                <span class="decision-val" id="decision-reason"></span>
+              </div>
+              <div class="decision-row" id="decision-rep-row">
+                <span class="decision-label">Merchant Reputation:</span>
+                <span class="decision-val" id="decision-reputation"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Budget & System Status -->
+      <section class="card status-card">
+        <div class="card-header">
+          <i class="fa-solid fa-chart-line"></i>
+          <h2>Metrics & Diagnostics</h2>
+        </div>
+        <div class="metrics-wrapper">
+          <!-- Circular Progress Meter -->
+          <div class="budget-progress-container">
+            <div class="circular-progress" id="budget-progress-circle">
+              <div class="inner-circle">
+                <span id="budget-spent-text">$0</span>
+                <span class="budget-total-label">spent of <span id="budget-limit-text">$100</span></span>
+              </div>
+            </div>
+            <h3>Daily Budget Utilization</h3>
+          </div>
+
+          <!-- Policy Badges -->
+          <div class="policy-status-list">
+            <div class="policy-status-item" id="policy-status-daily">
+              <i class="fa-solid fa-circle-check"></i>
+              <div class="policy-desc">
+                <span>Daily Limit Enforcement</span>
+                <small id="policy-desc-daily">Active (Limit: $100)</small>
+              </div>
+            </div>
+            <div class="policy-status-item" id="policy-status-whitelist">
+              <i class="fa-solid fa-circle-check"></i>
+              <div class="policy-desc">
+                <span>Merchant Whitelist</span>
+                <small id="policy-desc-whitelist">Active (5 merchants)</small>
+              </div>
+            </div>
+            <div class="policy-status-item" id="policy-status-reputation">
+              <i class="fa-solid fa-circle-check"></i>
+              <div class="policy-desc">
+                <span>Reputation Score Guard</span>
+                <small id="policy-desc-reputation">Active (Min: 70/100)</small>
+              </div>
+            </div>
+            <div class="policy-status-item" id="policy-status-rate">
+              <i class="fa-solid fa-circle-check"></i>
+              <div class="policy-desc">
+                <span>Spam & Rate Limit Protect</span>
+                <small id="policy-desc-rate">Active (5 tx / 60s)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Bottom Section: Logs -->
+    <section class="card logs-card">
+      <div class="card-header logs-header">
+        <div class="header-left">
+          <i class="fa-solid fa-list-check"></i>
+          <h2>Audit & Decision Log</h2>
+        </div>
+        <button class="btn btn-sm btn-danger-outline" id="clear-logs-btn">
+          <i class="fa-solid fa-trash-can"></i> Clear History
+        </button>
+      </div>
+      <div class="table-responsive">
+        <table class="logs-table">
+          <thead>
+            <tr>
+              <th>Timestamp</th>
+              <th>Transaction ID</th>
+              <th>Merchant</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Triggered Block</th>
+              <th>Details & Reasoning</th>
+            </tr>
+          </thead>
+          <tbody id="logs-tbody">
+            <!-- Dynamically populated -->
+            <tr>
+              <td colspan="7" class="empty-state">No transaction events recorded. Run a simulation above!</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
