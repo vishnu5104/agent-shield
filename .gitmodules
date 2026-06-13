@@ -1,0 +1,3 @@
+[submodule "external/agentcode"]
+	path = external/agentcode
+	url = https://github.com/vishnu5104/agentcode.git
