@@ -1,4 +1,4 @@
-export { AgentShield, ShieldValidationError } from './core/Shield.js';
-export { MemoryStorage } from './storage/MemoryStorage.js';
-export { FileStorage } from './storage/FileStorage.js';
-export * from './core/types.js';
+export { AgentShield, ShieldValidationError } from './core/Shield';
+export { MemoryStorage } from './storage/MemoryStorage';
+export { FileStorage } from './storage/FileStorage';
+export * from './core/types';

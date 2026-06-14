@@ -1,4 +1,4 @@
-import { Transaction, Decision, ShieldConfig } from '../core/types.js';
+import { Transaction, Decision, ShieldConfig } from '../core/types';
 
 // Predefined reputation database for well-known merchants
 const REPUTATION_REGISTRY: Record<string, number> = {

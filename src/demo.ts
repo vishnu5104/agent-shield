@@ -1,4 +1,4 @@
-import { AgentShield, ShieldValidationError } from './index.js';
+import { AgentShield, ShieldValidationError } from './index';
 
 // ANSI colors for premium terminal outputs
 const green = (s: string) => `\x1b[32m${s}\x1b[0m`;

@@ -1,4 +1,4 @@
-import { StorageProvider, Transaction, Decision, LogEntry } from '../core/types.js';
+import { StorageProvider, Transaction, Decision, LogEntry } from '../core/types';
 
 export class MemoryStorage implements StorageProvider {
   private dailySpend: Map<string, number> = new Map();

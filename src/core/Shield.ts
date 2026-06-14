@@ -1,10 +1,10 @@
-import { Transaction, Decision, ShieldConfig, StorageProvider } from './types.js';
-import { MemoryStorage } from '../storage/MemoryStorage.js';
-import { FileStorage } from '../storage/FileStorage.js';
-import { checkDailyLimit } from '../guards/DailyLimitGuard.js';
-import { checkWhitelist } from '../guards/WhitelistGuard.js';
-import { checkReputation } from '../guards/ReputationGuard.js';
-import { checkRateLimit } from '../guards/RateLimitGuard.js';
+import { Transaction, Decision, ShieldConfig, StorageProvider } from './types';
+import { MemoryStorage } from '../storage/MemoryStorage';
+import { FileStorage } from '../storage/FileStorage';
+import { checkDailyLimit } from '../guards/DailyLimitGuard';
+import { checkWhitelist } from '../guards/WhitelistGuard';
+import { checkReputation } from '../guards/ReputationGuard';
+import { checkRateLimit } from '../guards/RateLimitGuard';
 
 export class ShieldValidationError extends Error {
   public decision: Decision;

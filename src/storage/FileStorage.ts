@@ -1,4 +1,4 @@
-import { StorageProvider, Transaction, Decision, LogEntry } from '../core/types.js';
+import { StorageProvider, Transaction, Decision, LogEntry } from '../core/types';
 import fs from 'node:fs/promises';
 import { existsSync } from 'node:fs';
 import path from 'node:path';

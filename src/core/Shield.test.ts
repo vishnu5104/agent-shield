@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert';
-import { AgentShield, ShieldValidationError } from './Shield.js';
-import { MemoryStorage } from '../storage/MemoryStorage.js';
+import { AgentShield, ShieldValidationError } from './Shield';
+import { MemoryStorage } from '../storage/MemoryStorage';
 
 test('AgentShield SDK Unit Tests', async (t) => {
   await t.test('Daily Limits Policy', async () => {

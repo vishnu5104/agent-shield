@@ -1,4 +1,4 @@
-import { Transaction, Decision, ShieldConfig } from '../core/types.js';
+import { Transaction, Decision, ShieldConfig } from '../core/types';
 
 export async function checkWhitelist(
   tx: Transaction,

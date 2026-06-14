@@ -1,4 +1,4 @@
-import { Transaction, Decision, ShieldConfig, StorageProvider } from '../core/types.js';
+import { Transaction, Decision, ShieldConfig, StorageProvider } from '../core/types';
 
 export async function checkDailyLimit(
   tx: Transaction,
