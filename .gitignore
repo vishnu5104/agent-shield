@@ -4,6 +4,10 @@ node_modules/
 # Compiled JavaScript output
 dist/
 
+# Next.js build output
+.next/
+out/
+
 # Local logs and persistent state
 logs/
 *.json.bak
