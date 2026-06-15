@@ -7,8 +7,8 @@ import fs from 'fs';
 import path from 'path';
 
 // Import ABIs and Bytecode
-import AgentShieldJson from '../../contracts/out/AgentShield.sol/AgentShield.json';
-import AgentWalletJson from '../../contracts/out/AgentWallet.sol/AgentWallet.json';
+import AgentShieldJson from './contracts/AgentShield.json';
+import AgentWalletJson from './contracts/AgentWallet.json';
 
 const STATE_FILE = path.join(process.cwd(), 'logs', 'deployed-contracts.json');
 const ANVIL_PORT = 8545;
